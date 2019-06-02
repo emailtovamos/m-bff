@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: &service-name m-bff
+  labels: &labels
+    app: *service-name
+spec:
+  minReadySeconds: 1
+  selector:
+    matchLabels: *labels
+  replicas: 1
+  revisionHistoryLimit: 10
+  template: 
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+      - name: *service-name
+        image: emailtovamos/m-bff:v1
+        command: ["./binary"]
+        args:
+          - --address-m-highscore=m-highscore:50051
+          - --address-m-game-engine=m-game-engine:60051
