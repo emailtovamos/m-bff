@@ -6,7 +6,7 @@ COPY vendor ./vendor
 COPY cli ./cli
 COPY bff ./bff
 
-RUN GOOS=linux go install ./cli
+RUN CGO_ENABLED=0 GOOS=linux go install ./cli
 
 #2nd Stage
 
